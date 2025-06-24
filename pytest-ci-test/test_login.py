@@ -36,6 +36,8 @@ def login(username, password,screenshot_name):
 # 測試案例 1：正確登入（期望成功）
 def test_valid_login():
     result = login("tomsmith", "SuperSecretPassword!", "TC01_success")
+
+    # Trigger CI
     assert "You logged into a secure area!" in result
 
 # 測試案例 2：密碼錯誤（期望顯示密碼錯誤訊息）
