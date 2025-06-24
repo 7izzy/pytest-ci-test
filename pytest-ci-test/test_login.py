@@ -6,8 +6,16 @@ import os
 
 # 定義登入函式：傳入帳號與密碼，回傳畫面上的訊息
 def login(username, password,screenshot_name):
-    # 啟動 Chrome 瀏覽器
-    driver = webdriver.Chrome()
+      # Headless 模式，適用於 GitHub Actions 無視窗環境
+    options = webdriver.ChromeOptions()
+    options.add_argument('--headless')  # 
+    options.add_argument('--no-sandbox')
+    options.add_argument('--disable-dev-shm-usage')
+    options.add_argument('--disable-gpu')
+    options.add_argument('--window-size=1920x1080')
+
+    # 啟動 Chrome（使用 headless 選項）
+    driver = webdriver.Chrome(options=options)
     
     # 開啟測試網站登入頁面
     driver.get("https://the-internet.herokuapp.com/login")
@@ -47,3 +55,6 @@ def test_wrong_password():
 def test_blank_input():
     result = login("", "", "TC03_blank")
     assert "Your username is invalid!" in result
+
+# Trigger CI test
+
